@@ -1,0 +1,54 @@
+{% extends "django_erd/base.html" %}
+
+{% block title %}ERD — {{ component.title }}{% endblock %}
+
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.4/cytoscape.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js"></script>
+{% endblock %}
+
+{% block nav %}
+<div class="nav-controls">
+    <span class="nav-title">{{ component.title }}</span>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="erd-container">
+    <!-- Collapsible detail panel -->
+    <aside id="detail-panel" class="detail-panel open">
+        <div class="panel-header">
+            <div class="panel-title-row">
+                <h2 id="panel-model-name" class="panel-model-name">—</h2>
+                <button id="panel-collapse-btn" class="panel-collapse-btn" onclick="togglePanel()" title="Collapse panel">&lsaquo;</button>
+            </div>
+            <div id="panel-model-meta" class="panel-model-meta"></div>
+            <input type="text" id="model-search" placeholder="Filter models..." oninput="filterModels(this.value)">
+        </div>
+        <div id="panel-body" class="panel-body">
+            <ul id="model-list" class="model-list"></ul>
+            <div id="model-detail" class="model-detail"></div>
+        </div>
+    </aside>
+    <button id="panel-expand-btn" class="panel-expand-btn hidden" onclick="togglePanel()" title="Show detail panel">&rsaquo;</button>
+
+    <!-- Graph view (always visible) -->
+    <div class="graph-area">
+        <div id="cy"></div>
+        <div class="overhead-controls">
+            <button onclick="cy.fit()" title="Fit to screen">Fit</button>
+            <button onclick="cy.zoom(cy.zoom() * 1.3)" title="Zoom in">+</button>
+            <button onclick="cy.zoom(cy.zoom() / 1.3)" title="Zoom out">&minus;</button>
+            <button onclick="centerOnNode(graphData.centralNode)" title="Go to central model">Center</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const graphData = {{ graph_json|safe }};
+</script>
+<script src="{% url 'django_erd:js' %}"></script>
+{% endblock %}

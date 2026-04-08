@@ -1,0 +1,35 @@
+{% extends "django_erd/base.html" %}
+
+{% block title %}Django ERD — Overview{% endblock %}
+
+{% block content %}
+<div class="index-container">
+    <h1>Entity Relationship Diagrams</h1>
+    <p class="subtitle">{{ total_models }} models across {{ components|length }} diagram{{ components|length|pluralize }}</p>
+
+    <div class="card-grid">
+        {% for comp in components %}
+        <a href="{% url 'django_erd:detail' comp.id %}" class="card">
+            <h2>{{ comp.title }}</h2>
+            <div class="card-stats">
+                <span class="stat">{{ comp.models|length }} model{{ comp.models|length|pluralize }}</span>
+                <span class="stat">{{ comp.edges|length }} relation{{ comp.edges|length|pluralize }}</span>
+            </div>
+            <div class="card-central">
+                Central: <strong>{{ comp.central_model_name }}</strong>
+            </div>
+            <div class="card-models">
+                {% for model in comp.models|slice:":8" %}
+                <span class="model-tag">{{ model.model_name }}</span>
+                {% endfor %}
+                {% with remaining=comp.models|length %}
+                {% if remaining > 8 %}
+                <span class="model-tag more">+{{ remaining|add:"-8" }} more</span>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
