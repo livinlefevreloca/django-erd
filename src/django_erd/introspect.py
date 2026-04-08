@@ -1,5 +1,7 @@
 """Introspect Django models using the _meta API."""
 
+from __future__ import annotations
+
 from django.apps import apps
 
 from django_erd.schema import FieldInfo, ModelInfo, RelationType

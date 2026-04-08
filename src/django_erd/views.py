@@ -1,5 +1,7 @@
 """Views for the Django ERD app."""
 
+from __future__ import annotations
+
 import json
 from importlib import resources
 

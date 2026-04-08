@@ -1,5 +1,7 @@
 """Data structures for representing Django model introspection results."""
 
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from enum import Enum
 
