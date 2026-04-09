@@ -89,6 +89,7 @@ function selectModel(modelId) {
         if (node.length) {
             node.addClass('highlighted');
             node.neighborhood().addClass('neighbor');
+            centerOnNode(modelId);
         }
     }
 }
@@ -290,11 +291,14 @@ function initCytoscape() {
             },
         ],
         layout: {
-            name: 'dagre',
-            rankDir: 'TB',
-            nodeSep: 80,
-            rankSep: 100,
-            edgeSep: 30,
+            name: 'fcose',
+            quality: 'default',
+            animate: false,
+            nodeDimensionsIncludeLabels: true,
+            idealEdgeLength: 200,
+            nodeRepulsion: 8000,
+            edgeElasticity: 0.45,
+            gravityRange: 1.5,
             padding: 40,
         },
         minZoom: 0.1,
