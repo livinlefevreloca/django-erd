@@ -1,6 +1,9 @@
 """Minimal Django settings for testing django-erd."""
 
 import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "test-secret-key-not-for-production"
 DEBUG = True

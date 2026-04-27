@@ -371,30 +371,32 @@ main {
     color: var(--pk);
 }
 
-.field-type {
+/* Row tooltip (shows type & badges on hover) */
+.fields-table tbody tr[data-tooltip] {
+    position: relative;
+    cursor: default;
+}
+
+.fields-table tbody tr[data-tooltip]:hover {
+    background: var(--surface-hover);
+}
+
+.fields-table tbody tr[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 8px;
+    bottom: 100%;
+    padding: 3px 8px;
+    background: var(--surface-hover);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 10px;
     font-family: var(--font);
-    font-size: 11px;
     color: var(--text-muted);
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
 }
-
-.field-badges {
-    display: flex;
-    gap: 3px;
-}
-
-.badge {
-    font-size: 9px;
-    padding: 1px 5px;
-    border-radius: 3px;
-    font-family: var(--font);
-    font-weight: 500;
-}
-
-.badge-pk { background: rgba(240, 198, 116, 0.15); color: var(--pk); }
-.badge-fk { background: rgba(164, 196, 224, 0.15); color: var(--fk); }
-.badge-m2m { background: rgba(202, 168, 216, 0.15); color: var(--m2m); }
-.badge-o2o { background: rgba(160, 212, 204, 0.15); color: var(--o2o); }
-.badge-null { background: rgba(150, 152, 150, 0.15); color: var(--nullable); }
 
 .relation-link {
     color: var(--accent);
@@ -472,6 +474,174 @@ main {
     width: 100%;
     height: 100%;
     background: var(--bg);
+}
+
+/* Graph toolbar */
+.graph-toolbar {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 6px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.toolbar-group label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.toggle-group {
+    display: flex;
+    gap: 2px;
+}
+
+.toggle-btn {
+    padding: 4px 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 11px;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s;
+}
+
+.toggle-btn:hover:not(:disabled) {
+    border-color: var(--accent-dim);
+    color: var(--text);
+}
+
+.toggle-btn.active {
+    background: var(--accent-bg);
+    border-color: var(--accent-dim);
+    color: var(--accent);
+}
+
+.toggle-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+#depth-select {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: var(--font-sans);
+    cursor: pointer;
+}
+
+#depth-select:focus {
+    border-color: var(--accent-dim);
+    outline: none;
+}
+
+/* Exclude refs dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    min-width: 60px;
+    text-align: left;
+}
+
+.dropdown-toggle:focus {
+    border-color: var(--accent-dim);
+    outline: none;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 0;
+    z-index: 100;
+    min-width: 100px;
+}
+
+.dropdown.open .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: var(--text);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background: var(--surface-hover);
+}
+
+.dropdown-item input[type="checkbox"] {
+    accent-color: var(--accent);
+}
+
+.dropdown-empty {
+    display: block;
+    padding: 5px 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.dropdown-header {
+    padding: 4px 10px 2px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+}
+
+.dropdown-header:first-child {
+    border-top: none;
+}
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#spread-slider {
+    width: 80px;
+    accent-color: var(--accent);
 }
 
 .overhead-controls {
